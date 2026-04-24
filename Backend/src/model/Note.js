@@ -2,12 +2,6 @@ import mongoose from "mongoose";
 
 const noteSchema = new mongoose.Schema(
   {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      auto: true,
-      unique: true,
-    },
     title: {
       type: String,
       required: true,
@@ -26,7 +20,6 @@ const noteSchema = new mongoose.Schema(
 
 /**
  * @description Note model for MongoDB with title and content validation
- * @param {string} Auto-inserted noteData.id - Note ID
  * @param {Object} required noteData - Note data object with title and content
  * @param {string} required noteData.title - Note title, min 1 char, max 100 chars
  * @param {string} required noteData.content - Note content, min 0 chars, max 1000 chars
