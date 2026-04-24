@@ -9,14 +9,16 @@ import connectDB from "./config/mongoDB.js";
  * @returns {void}
  */
 const startServer = async () => {
-  await connectDB();
+  await connectDB().then(() => {
+    const app = express();
+    app.use(express.json()); // Middleware to parse JSON bodies
+    app.use(NOTES_ROUTER);
 
-  const app = express();
-  app.use(express.json()); // Middleware to parse JSON bodies
-  app.use(NOTES_ROUTER);
-
-  app.listen(process.env.APP_PORT || 5001, () => {
-    console.log("Server is running on port " + (process.env.APP_PORT || 5001));
+    app.listen(process.env.APP_PORT || 5001, () => {
+      console.log(
+        "Server is running on port " + (process.env.APP_PORT || 5001),
+      );
+    });
   });
 };
 
