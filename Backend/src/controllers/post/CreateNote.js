@@ -15,7 +15,7 @@ import Note from "../../model/Note.js";
  *    "updatedAt":"2026-04-24T17:01:06.580Z",
  *    "__v":0
  * }
- * @returns status with {Object} - A JSON object with note data
+ * @returns status with {Object} - A JSON object with note data or 500 with { message: "Internal server error", error: error.message } if note not found
  */
 export async function CreateNote(req, res) {
   try {

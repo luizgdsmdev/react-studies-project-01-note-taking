@@ -1,11 +1,11 @@
 import Note from "../../model/Note.js";
 
 /**
- * @description Get all notes related to current user
+ * @description Get a single note related to current user
  * @param {Object} req - JSON request object
  * @param {Object} res - JSON response object
  * @method GET
- * @route /api/v1/notes
+ * @route /api/v1/notes/:id
  * @example status 200 ok with
  * {
  *    "title":"My note",
@@ -17,12 +17,15 @@ import Note from "../../model/Note.js";
  * }
  * @returns status with {Object} - A JSON object with notes data or 500 with { message: "Internal server error", error: error.message } if note not found
  */
-export async function GetAllNotes(req, res) {
+export async function GetSingleNote(req, res) {
   try {
-    const notes = await Note.find().sort({ createdAt: -1 }); // Retrieve all notes from the database, sorted by creation date (newest first)
-    return res.status(200).json(notes);
+    const note = await Note.findById(req.params.id);
+    return res.status(200).json(note);
   } catch (error) {
-    console.error("Error getting all notes at GetAllNotes controller:", error);
+    console.error(
+      "Error getting single note at GetSingleNote controller:",
+      error,
+    );
     return res
       .status(500)
       .json({ message: "Internal server error", error: error.message });
