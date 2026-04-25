@@ -8,7 +8,7 @@ import {
   validateId,
   validateNoteBody,
   validateEmptyRequest,
-} from "../validators/noteValidator.js";
+} from "../middleware/validators/noteValidator.js";
 
 /**
  * @description Router for server endpoints across all routes on notes
