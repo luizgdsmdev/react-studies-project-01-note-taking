@@ -10,6 +10,7 @@ import axios from "axios";
  * @param {Function} setErrorMessage - Function to set the error message state
  * @param {Function} setErrorCode - Function to set the error code state
  * @param {Function} setIsError - Function to set the error state
+ * @path Request to http://localhost:5001/api/v1/notes
  * @returns {Promise<Array>} - Promise that resolves to an array of notes
  */
 const FetchAllNotes = async (

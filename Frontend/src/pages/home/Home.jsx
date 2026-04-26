@@ -3,6 +3,7 @@ import RateLimiting from "../../components/shared/RateLimiting";
 import ErrorMessage from "../../components/shared/ErrorMessage";
 import { useEffect, useState } from "react";
 import FetchAllNotes from "../../utils/API/notes/FetchAllNotes";
+import Loading from "../../components/shared/Loading";
 
 function Home() {
   const [isRateLimited, setIsRateLimited] = useState(false);
@@ -13,6 +14,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const AllNotesResponse = async () => {
+    setIsLoading(true);
     const response = await FetchAllNotes(
       setIsLoading,
       setNotes,
@@ -21,12 +23,15 @@ function Home() {
       setErrorCode,
       setIsError,
     );
+
+    setIsLoading(false);
     return response;
   };
 
   const handleRetry = () => {
     setIsRateLimited(false);
     setIsError(false);
+    setIsLoading(true);
     AllNotesResponse();
   };
 
@@ -47,6 +52,7 @@ function Home() {
           onRetry={handleRetry}
         />
       )}
+      {isLoading && <Loading />}
     </div>
   );
 }
