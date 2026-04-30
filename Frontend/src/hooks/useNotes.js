@@ -1,8 +1,9 @@
-import { useState, useCallback, useEffect } from "react";
+// hooks/useNotes.js
+import { useQuery } from "@tanstack/react-query";
 import FetchAllNotes from "../utils/API/notes/FetchAllNotes";
 
 /**
- * @description Custom hook to manage notes data fetching and state for home page
+ * @description Custom hook to manage notes data fetching with React Query caching
  * @returns {Object} - Notes data and related functions
  * @property {Array} notes - Array of notes
  * @property {boolean} isLoading - Loading state
@@ -11,66 +12,46 @@ import FetchAllNotes from "../utils/API/notes/FetchAllNotes";
  * @property {string} errorMessage - Error message
  * @property {string} errorCode - Error code
  * @property {Function} handleRetry - Function to retry fetching notes
- * @example
- * ```jsx
- * const { notes, isLoading, isError, isRateLimited, errorMessage, handleRetry } = useNotes();
- * ```
  */
 export const useNotes = () => {
-  const [notes, setNotes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [error, setError] = useState({
-    isError: false,
-    isRateLimited: false,
-    message: "",
-    code: "",
+  const {
+    data: notes = [],
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["notes"],
+    queryFn: FetchAllNotes,
+    // Configurations inherited from QueryClient (main.jsx):
+    // - staleTime: 3 minutes
+    // - cacheTime: 10 minutes
+    // - refetchOnWindowFocus: true
+    // - refetchOnReconnect: true
+    // - retry: 1
   });
 
-  const fetchNotes = useCallback(async (isInitial = false) => {
-    if (isInitial) setIsLoading(true);
-    const result = await FetchAllNotes();
+  // Detect rate limit (status 429)
+  const isRateLimited = error?.response?.status === 429;
 
-    if (result.success) {
-      setNotes(result.data);
-      setError({ isError: false, isRateLimited: false, message: "", code: "" });
-    } else {
-      if (result.error.isRateLimited) {
-        setError({
-          isError: false,
-          isRateLimited: result.error.isRateLimited,
-          message: result.error.message,
-          code: result.error.code,
-        });
-      } else {
-        setError({
-          isError: true,
-          isRateLimited: result.error.isRateLimited,
-          message: result.error.message,
-          code: result.error.code,
-        });
-      }
-    }
-    setIsLoading(false);
-  }, []);
+  // Generic error (not rate limit)
+  const isError = !!error && !isRateLimited;
 
-  const handleRetry = useCallback(() => {
-    setError((prev) => ({ ...prev, isError: false, isRateLimited: false }));
-    setIsLoading(true);
-    fetchNotes(true);
-  }, [fetchNotes]);
+  // Message and error code
+  const errorMessage = error?.message || "";
+  const errorCode = error?.code || "";
 
-  useEffect(() => {
-    fetchNotes(true);
-  }, [fetchNotes]);
+  // Retry manual (RateLimiting and ErrorMessage use this)
+  const handleRetry = () => {
+    refetch();
+  };
 
   return {
     notes,
     isLoading,
-    isError: error.isError,
-    isRateLimited: error.isRateLimited,
-    errorMessage: error.message,
-    errorCode: error.code,
+    isError,
+    isRateLimited,
+    errorMessage,
+    errorCode,
     handleRetry,
   };
 };

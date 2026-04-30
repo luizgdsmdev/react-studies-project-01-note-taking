@@ -31,6 +31,7 @@ function Home() {
         />
       )}
       {isLoading && <Loading />}
+      {notes.length > 0 && <div>Notes: {notes.length}</div>}
     </div>
   );
 }

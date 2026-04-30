@@ -11,24 +11,15 @@ import axios from "axios";
  * @param {Function} setErrorCode - Function to set the error code state
  * @param {Function} setIsError - Function to set the error state
  * @path Request to http://localhost:5001/api/v1/notes
- * @returns {Promise<{ success: true, data: Array } | { success: false, error: Object }>}
+ * @returns {Promise<Array>} - Returns an array of notes
  */
 const FetchAllNotes = async () => {
   try {
     const response = await axios.get("http://localhost:5001/api/v1/notes");
-    return {
-      success: true,
-      data: response.data,
-    };
+    return response.data; // returns array of notes directly
   } catch (error) {
-    return {
-      success: false,
-      error: {
-        message: error.message,
-        code: error.code,
-        isRateLimited: error.response?.status === 429,
-      },
-    };
+    // Throws the error for React Query to catch
+    throw error;
   }
 };
 
