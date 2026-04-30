@@ -3,6 +3,10 @@ import Create from "./pages/create/Create";
 import NoteDetails from "./pages/noteDetails/NoteDetails";
 import { Routes, Route } from "react-router-dom";
 
+/**
+ * @description Main App component that defines the routing for the application
+ * @returns {JSX.Element} Main App component with routing
+ */
 function App() {
   return (
     <div>

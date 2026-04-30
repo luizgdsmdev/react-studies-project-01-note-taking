@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 /**
  * @description Loading component that displays a loading spinner with multiple sizes during API calls and more
  * @returns {JSX.Element} Loading spinner with multiple sizes
@@ -14,4 +16,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default memo(Loading);

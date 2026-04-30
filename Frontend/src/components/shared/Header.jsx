@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { PlusIcon } from "lucide-react";
+import { memo } from "react";
 
 /**
  * @description
@@ -21,7 +22,7 @@ const Header = () => {
             className="btn btn-primary text-base-100 align-middle align-text-center"
           >
             <PlusIcon className="w-4 h-4" />
-            Note
+            New
           </Link>
         </div>
       </nav>
@@ -29,4 +30,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

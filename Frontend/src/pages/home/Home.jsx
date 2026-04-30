@@ -1,51 +1,29 @@
+import { useNotes } from "../../hooks/useNotes";
 import Header from "../../components/shared/Header";
 import RateLimiting from "../../components/shared/RateLimiting";
 import ErrorMessage from "../../components/shared/ErrorMessage";
-import { useEffect, useState } from "react";
-import FetchAllNotes from "../../utils/API/notes/FetchAllNotes";
 import Loading from "../../components/shared/Loading";
 
+/**
+ * @description Home page component that displays notes and related UI elements
+ * @returns {JSX.Element} Home page with notes and related UI elements
+ */
 function Home() {
-  const [isRateLimited, setIsRateLimited] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [errorCode, setErrorCode] = useState("");
-  const [notes, setNotes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    notes,
+    isLoading,
+    isError,
+    errorMessage,
+    isRateLimited,
+    errorCode,
+    handleRetry,
+  } = useNotes();
 
-  const AllNotesResponse = async () => {
-    setIsLoading(true);
-    const response = await FetchAllNotes(
-      setIsLoading,
-      setNotes,
-      setIsRateLimited,
-      setErrorMessage,
-      setErrorCode,
-      setIsError,
-    );
-
-    setIsLoading(false);
-    return response;
-  };
-
-  const handleRetry = () => {
-    setIsRateLimited(false);
-    setIsError(false);
-    setIsLoading(true);
-    AllNotesResponse();
-  };
-
-  useEffect(() => {
-    (async () => {
-      await AllNotesResponse();
-    })();
-  }, []);
-  console.log(notes);
   return (
     <div className="min-h-screen">
       <Header />
       {isRateLimited && <RateLimiting onRetry={handleRetry} />}
-      {isError && (
+      {isError && !isRateLimited && (
         <ErrorMessage
           message={errorMessage}
           code={errorCode}

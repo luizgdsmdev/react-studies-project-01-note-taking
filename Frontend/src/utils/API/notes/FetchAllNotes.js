@@ -11,34 +11,24 @@ import axios from "axios";
  * @param {Function} setErrorCode - Function to set the error code state
  * @param {Function} setIsError - Function to set the error state
  * @path Request to http://localhost:5001/api/v1/notes
- * @returns {Promise<Array>} - Promise that resolves to an array of notes
+ * @returns {Promise<{ success: true, data: Array } | { success: false, error: Object }>}
  */
-const FetchAllNotes = async (
-  setIsLoading,
-  setNotes,
-  setIsRateLimited,
-  setErrorMessage,
-  setErrorCode,
-  setIsError,
-) => {
-  setIsLoading(true);
+const FetchAllNotes = async () => {
   try {
     const response = await axios.get("http://localhost:5001/api/v1/notes");
-
-    setNotes(response.data);
-    setIsRateLimited(false);
-    return response.data;
+    return {
+      success: true,
+      data: response.data,
+    };
   } catch (error) {
-    if (error.response && error.response.status === 429) {
-      setIsRateLimited(true);
-    } else {
-      setErrorMessage(error.message);
-      setErrorCode(error.code);
-      setIsError(true);
-      console.error(error);
-    }
-  } finally {
-    setIsLoading(false);
+    return {
+      success: false,
+      error: {
+        message: error.message,
+        code: error.code,
+        isRateLimited: error.response?.status === 429,
+      },
+    };
   }
 };
 
