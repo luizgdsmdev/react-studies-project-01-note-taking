@@ -5,6 +5,10 @@ import Create from "../../pages/create/Create";
 import NoteDetails from "../../pages/noteDetails/NoteDetails";
 import { AnimatePresence } from "framer-motion";
 
+/**
+ * @description Animated routes component controller, holds all routes and handles animations
+ * @returns {JSX.Element} Animated routes
+ */
 const AnimatedRoutes = () => {
   const location = useLocation();
 

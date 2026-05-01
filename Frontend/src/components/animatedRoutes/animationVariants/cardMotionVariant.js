@@ -1,3 +1,8 @@
+/**
+ * @description Card motion variant for animation
+ * @param {number} index - Index of the card
+ * @returns {Object} Card motion variant
+ */
 const cardVariants = (index) => {
   return {
     hidden: {

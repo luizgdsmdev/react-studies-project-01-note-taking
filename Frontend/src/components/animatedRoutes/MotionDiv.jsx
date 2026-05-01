@@ -1,5 +1,11 @@
 import { motion } from "framer-motion";
 
+/**
+ * @description Motion div component for animation
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - Child components
+ * @returns {JSX.Element} Motion div
+ */
 export default function MotionDiv({ children }) {
   return (
     <motion.div
