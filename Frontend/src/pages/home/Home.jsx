@@ -3,6 +3,7 @@ import Header from "../../components/shared/Header";
 import RateLimiting from "../../components/shared/RateLimiting";
 import ErrorMessage from "../../components/shared/ErrorMessage";
 import Loading from "../../components/shared/Loading";
+import NoteCard from "./noteCard/NoteCard";
 
 /**
  * @description Home page component that displays notes and related UI elements
@@ -31,7 +32,13 @@ function Home() {
         />
       )}
       {isLoading && <Loading />}
-      {notes.length > 0 && <div>Notes: {notes.length}</div>}
+      {notes.length > 0 && (
+        <div className="flex flex-wrap justify-center items-center gap-4 p-4">
+          {notes.map((note) => (
+            <NoteCard key={note._id} note={note} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Tooltip pequena */
+.tooltip-sm::before {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  height: auto;
+  min-height: 1.5rem;
+}
+ 
+/* Tooltip média (padrão) */
+.tooltip-md::before {
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+}
+ 
+/* Tooltip grande */
+.tooltip-lg::before {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+}
