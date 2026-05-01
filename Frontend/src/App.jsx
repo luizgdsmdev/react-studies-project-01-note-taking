@@ -1,7 +1,4 @@
-import Home from "./pages/home/Home";
-import Create from "./pages/create/Create";
-import NoteDetails from "./pages/noteDetails/NoteDetails";
-import { Routes, Route } from "react-router-dom";
+import AnimatedRoutes from "./components/animatedRoutes/AnimatedRoutes";
 
 /**
  * @description Main App component that defines the routing for the application
@@ -12,11 +9,7 @@ function App() {
     <div data-theme="dark" className="relative min-h-full w-full">
       <div className="fixed inset-0 -z-10 h-full w-full bg-base-300" />
       <div className="relative z-0 min-h-full w-full">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<Create />} />
-          <Route path="/note/:id" element={<NoteDetails />} />
-        </Routes>
+        <AnimatedRoutes />
       </div>
     </div>
   );

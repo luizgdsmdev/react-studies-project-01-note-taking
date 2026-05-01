@@ -4,6 +4,7 @@ import RateLimiting from "../../components/shared/RateLimiting";
 import ErrorMessage from "../../components/shared/ErrorMessage";
 import Loading from "../../components/shared/Loading";
 import NoteCard from "./noteCard/NoteCard";
+import MotionDiv from "../../components/animatedRoutes/MotionDiv";
 
 /**
  * @description Home page component that displays notes and related UI elements
@@ -21,7 +22,7 @@ function Home() {
   } = useNotes();
 
   return (
-    <div className="min-h-screen bg-base-300">
+    <MotionDiv>
       <Header />
       {isRateLimited && <RateLimiting onRetry={handleRetry} />}
       {isError && !isRateLimited && (
@@ -39,7 +40,7 @@ function Home() {
           ))}
         </div>
       )}
-    </div>
+    </MotionDiv>
   );
 }
 
