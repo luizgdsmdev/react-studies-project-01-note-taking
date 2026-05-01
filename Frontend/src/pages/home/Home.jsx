@@ -21,7 +21,7 @@ function Home() {
   } = useNotes();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-base-300">
       <Header />
       {isRateLimited && <RateLimiting onRetry={handleRetry} />}
       {isError && !isRateLimited && (
