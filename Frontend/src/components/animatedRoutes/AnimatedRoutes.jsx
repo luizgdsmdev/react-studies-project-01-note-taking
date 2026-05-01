@@ -21,7 +21,7 @@ const AnimatedRoutes = () => {
       document.body.style.scrollbarWidth = "";
       document.body.style.msOverflowStyle = "";
       document.documentElement.style.overflow = "";
-    }, 500); // Timeout a little longer than transition duration
+    }, 800); // Timeout a little longer than transition duration
 
     return () => {
       clearTimeout(timeout);

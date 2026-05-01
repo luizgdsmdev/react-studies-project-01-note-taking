@@ -35,8 +35,8 @@ function Home() {
       {isLoading && <Loading />}
       {notes.length > 0 && (
         <div className="flex flex-wrap justify-center items-center gap-4 p-4">
-          {notes.map((note) => (
-            <NoteCard key={note._id} note={note} />
+          {notes.map((note, index) => (
+            <NoteCard key={note._id} note={note} index={index} />
           ))}
         </div>
       )}
