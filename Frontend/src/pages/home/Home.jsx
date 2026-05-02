@@ -5,6 +5,7 @@ import ErrorMessage from "../../components/shared/ErrorMessage";
 import Loading from "../../components/shared/Loading";
 import NoteCard from "./noteCard/NoteCard";
 import MotionDiv from "../../components/animatedRoutes/MotionDiv";
+import NoNotesMessage from "./noNotesMessage/NoNotesMessage";
 
 /**
  * @description Home page component that displays notes and related UI elements
@@ -33,12 +34,14 @@ function Home() {
         />
       )}
       {isLoading && <Loading />}
-      {notes.length > 0 && (
+      {notes.length > 0 ? (
         <div className="flex flex-wrap justify-center items-center gap-4 p-4">
           {notes.map((note, index) => (
             <NoteCard key={note._id} note={note} index={index} />
           ))}
         </div>
+      ) : (
+        <NoNotesMessage />
       )}
     </MotionDiv>
   );
