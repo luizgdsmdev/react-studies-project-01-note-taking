@@ -56,6 +56,7 @@ function Create() {
         isError,
         isRateLimited,
         navigate,
+        ToastSuccessMessage,
       });
     }
   }, [note, isError, isRateLimited, navigate]);

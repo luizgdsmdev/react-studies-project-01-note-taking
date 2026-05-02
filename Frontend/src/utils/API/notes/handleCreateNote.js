@@ -21,7 +21,6 @@ export default function handleCreateNote({
   isError,
   isRateLimited,
   ToastErrorMessage,
-  ToastSuccessMessage,
 }) {
   e.preventDefault();
   if (
@@ -46,10 +45,6 @@ export default function handleCreateNote({
     setIsLoading(true);
     return;
   }
-
-  ToastSuccessMessage({
-    message: "Note created successfully, we're redirecting you...",
-  });
 }
 
 /**
@@ -66,8 +61,13 @@ export function handleRedirectOnSuccess({
   isError,
   isRateLimited,
   navigate,
+  ToastSuccessMessage,
 }) {
   if (noteId && !isError && !isRateLimited) {
+    ToastSuccessMessage({
+      message: "Note created successfully, we're redirecting you...",
+    });
+
     setTimeout(() => {
       navigate(`/note/${noteId}`);
     }, 1500); // Delay to show success message
