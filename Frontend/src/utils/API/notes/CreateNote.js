@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../../axios/axiosInstance";
 
 /**
  * @description
@@ -9,16 +9,11 @@ import axios from "axios";
  * @returns {Promise<Object>} - Returns the created note
  */
 const CreateNote = async ({ title, content }) => {
-  try {
-    const response = await axios.post("http://localhost:5001/api/v1/notes", {
-      title,
-      content,
-    });
-    return response.data; // returns array of notes directly
-  } catch (error) {
-    // Throws the error for React Query to catch
-    throw error;
-  }
+  const response = await axiosInstance.post("/notes", {
+    title,
+    content,
+  });
+  return response.data; // returns array of notes directly
 };
 
 export default CreateNote;
