@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import cardMotionVariant from "../../../components/animatedRoutes/animationVariants/cardMotionVariant";
 import { Link } from "react-router-dom";
 import {
   containerVariants,
