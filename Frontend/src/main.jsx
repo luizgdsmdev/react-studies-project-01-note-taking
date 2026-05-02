@@ -10,7 +10,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 3 * 60 * 1000,
-      cacheTime: 10 * 60 * 1000,
+      cacheTime: 5 * 60 * 1000,
       refetchOnWindowFocus: true, // reloads when you come back to the tab
       refetchOnReconnect: true, // reloads when you reconnect to internet
       retry: 1, // tries 1 time before showing error
