@@ -49,11 +49,14 @@ const DeleteMessage = ({ onRetry, noteId, noteTitle, isOpen, onClose }) => {
             </p>
             <p>Are you sure?</p>
             <div className="flex justify-end gap-2 mt-6">
-              <button className="btn btn-md btn-ghost" onClick={handleCancel}>
+              <button
+                className="btn btn-md btn-ghost transition-all duration-300"
+                onClick={handleCancel}
+              >
                 Cancel
               </button>
               <button
-                className="btn btn-md btn-error text-white hover:bg-error/600"
+                className="btn btn-md btn-ghost text-white hover:bg-error/50 transition-all duration-300"
                 onClick={handleDelete}
               >
                 Delete
